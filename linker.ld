@@ -1,6 +1,5 @@
 ENTRY(Reset_Handler)
 
-/* Memory layout for lm3s6965evb */
 MEMORY 
 {
     FLASH (rx) : ORIGIN = 0x00000000, LENGTH = 256K
