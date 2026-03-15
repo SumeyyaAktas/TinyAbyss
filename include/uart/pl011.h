@@ -3,8 +3,6 @@
 
 #include <stdint.h>
 
-#define UART0_BASE 0x4000C000U
-
 typedef volatile struct 
 {
     uint32_t DR;            
@@ -25,6 +23,7 @@ typedef volatile struct
     uint32_t DMACR;         
 } PL011_t;
 
+#define UART0_BASE 0x4000C000U
 #define UART0 ((PL011_t *) UART0_BASE)
 
 #define FR_TXFF (1u << 5)    
