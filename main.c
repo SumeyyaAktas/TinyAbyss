@@ -1,12 +1,17 @@
+#include "uart/pl011.h"
+
 void hcf(void)
 {
     for (;;)
     {
-        asm("wfi");
+        __asm__ volatile("wfi");
     }
 }
 
 void main(void)
 {
+    uart_init();
+    uart_puts("\nHello from TinyAbyss!\n");
+    
     hcf();
 }
