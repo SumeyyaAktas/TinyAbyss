@@ -1,6 +1,18 @@
 #include "uart/pl011.h"
 #include "systick/systick.h"
 
+void print_uint32(uint32_t n)
+{
+    if (n < 10)
+    {
+        uart_putc('0' + n);
+        return;
+    }
+
+    print_uint32(n / 10);
+    uart_putc('0' + (n % 10));
+}
+
 void hcf(void)
 {
     for (;;)
@@ -26,7 +38,7 @@ void main(void)
             last_tick = global_tick_counter;
 
             uart_puts("Tick: ");
-            uart_putc('0' + (last_tick % 10)); 
+            print_uint32(last_tick); 
             uart_puts("\n");
         }
     }
