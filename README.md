@@ -1,6 +1,7 @@
 <div align="center">
 
   # DoRTOS
+  <img src="assets/doritos_icon.png" width="100" height="100">
 
 </div>
 
