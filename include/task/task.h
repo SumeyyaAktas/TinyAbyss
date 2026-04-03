@@ -19,4 +19,6 @@ typedef struct
     States task_state;
 } TCB_t;
 
+void task_create(TCB_t *tcb, void (*entry)(void), uint8_t task_id);
+
 #endif 
