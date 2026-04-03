@@ -42,5 +42,6 @@ typedef volatile struct
 void uart_init(void);
 void uart_putc(char c);
 void uart_puts(const char *s);
+void print_uint32(uint32_t n);
 
 #endif

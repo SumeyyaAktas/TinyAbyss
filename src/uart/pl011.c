@@ -32,3 +32,15 @@ void uart_puts(const char *s)
         uart_putc(*s++);
     }
 }
+
+void print_uint32(uint32_t n)
+{
+    if (n < 10)
+    {
+        uart_putc('0' + n);
+        return;
+    }
+
+    print_uint32(n / 10);
+    uart_putc('0' + (n % 10));
+}
