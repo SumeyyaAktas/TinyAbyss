@@ -11,8 +11,8 @@
 #define CSR_TICKINT (1 << 1)
 #define CSR_CLKSOURCE (1 << 2)
 
-void systick_init(void);
-
 extern volatile uint32_t global_tick_counter;
+
+void systick_init(void);
 
 #endif
