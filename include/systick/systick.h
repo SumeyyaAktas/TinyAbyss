@@ -11,6 +11,9 @@
 #define CSR_TICKINT (1 << 1)
 #define CSR_CLKSOURCE (1 << 2)
 
+#define ICSR 0xE000ED04 
+#define ICSR_PENDSVSET (1 << 28) 
+
 extern volatile uint32_t global_tick_counter;
 
 void systick_init(void);
