@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
+#define MAX_TASKS 2 
+
 typedef enum 
 {
     READY,
@@ -19,6 +21,12 @@ typedef struct
     States task_state;
 } TCB_t;
 
+extern TCB_t *task_table[MAX_TASKS]; 
+extern uint8_t task_count; 
+extern uint8_t current_task_index; 
+
 void task_create(TCB_t *tcb, void (*entry)(void), uint8_t task_id);
+void task_register(TCB_t *tcb); 
+void scheduler_next(void); 
 
 #endif 
