@@ -8,6 +8,11 @@ TARGET := $(BUILD_DIR)/rtos.elf
 C_SRC := $(shell find . -name "*.c")
 C_OBJ := $(patsubst ./%.c,$(BUILD_DIR)/%.o,$(C_SRC))
 
+ASM_SRC := $(shell find . -name "*.s")
+ASM_OBJ := $(patsubst ./%.s,$(BUILD_DIR)/%.o,$(ASM_SRC))
+
+OBJ := $(C_OBJ) $(ASM_OBJ)
+
 CFLAGS := -mcpu=cortex-m3 \
           -mthumb \
           -nostdlib \
@@ -33,7 +38,11 @@ $(BUILD_DIR)/%.o: %.c | $(BUILD_DIR)
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(TARGET): $(C_OBJ) | $(BUILD_DIR)
+$(BUILD_DIR)/%.o: %.s | $(BUILD_DIR)
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(TARGET): $(OBJ) | $(BUILD_DIR)
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
 
 run: $(TARGET)
