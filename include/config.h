@@ -1,7 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define MAX_TASKS 2
+#define MAX_TASKS 3
 
 #define STACK_SIZE 256
 
