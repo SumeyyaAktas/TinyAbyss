@@ -4,6 +4,9 @@
 #include <stdint.h>
 #include "config.h"
 
+struct Mutex;
+typedef struct Mutex Mutex_t;
+
 typedef enum 
 {
     READY,
@@ -19,6 +22,7 @@ typedef struct TCB
     uint8_t task_id;
     States task_state;
     uint32_t wake_tick;
+    Mutex_t *waiting_on;
 } TCB_t;
 
 extern TCB_t *task_table[MAX_TASKS];
