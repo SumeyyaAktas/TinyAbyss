@@ -12,6 +12,9 @@ void SysTick_Handler(void)
 
 void systick_init(void)
 {
+    *((volatile uint32_t *)0xE000ED20) |= (0xFFu << 16);
+    *((volatile uint32_t *)0xE000ED20) |= (0xFEu << 24);
+    
     SYSTICK->CSR = 0;
     SYSTICK->RVR = (CLOCK_HZ / TICK_HZ) - 1;
     SYSTICK->CVR = 0;
