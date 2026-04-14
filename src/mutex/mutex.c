@@ -64,3 +64,31 @@ void mutex_unlock(Mutex_t *m)
 
     __asm__ volatile("cpsie i");
 }
+
+void mutex_lock(Mutex_t *m)
+{
+    __asm__ volatile("cpsid i");
+
+    TCB_t *current = task_table[current_task_index];
+
+    if (m->locked == 0)
+    {
+        m->locked = 1;
+        m->owner  = current->task_id;
+        m->holder = current;
+    }
+    else
+    {
+        if (current->effective_priority > m->holder->effective_priority)
+        {
+            m->holder->effective_priority = current->effective_priority;
+        }
+
+        current->task_state = BLOCKED;    
+        current->waiting_on = m;
+        mutex_enqueue(m, current);       
+        SCB->ICSR |= ICSR_PENDSVSET;      
+    }
+
+    __asm__ volatile("cpsie i");
+}
