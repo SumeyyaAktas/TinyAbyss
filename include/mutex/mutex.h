@@ -11,6 +11,7 @@ typedef struct Mutex
 {
     volatile uint8_t locked;
     int8_t owner;
+    TCB_t *holder;
 
     TCB_t *wait_queue[MAX_TASKS];
     uint8_t head;
