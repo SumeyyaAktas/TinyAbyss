@@ -23,13 +23,15 @@ typedef struct TCB
     States task_state;
     uint32_t wake_tick;
     Mutex_t *waiting_on;
+    uint8_t base_priority;
+    uint8_t effective_priority;
 } TCB_t;
 
 extern TCB_t *task_table[MAX_TASKS];
-extern uint8_t task_count;
-extern uint8_t current_task_index;
+extern volatile uint8_t task_count;
+extern volatile uint8_t current_task_index;
 
-void task_create(TCB_t *tcb, void (*entry)(void), uint8_t task_id);
+void task_create(TCB_t *tcb, void (*entry)(void), uint8_t task_id, uint8_t priority);
 void task_register(TCB_t *tcb); 
 void scheduler_next(void); 
 void task_start(void);
