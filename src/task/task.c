@@ -108,6 +108,29 @@ void scheduler_next(void)
     current_task_index = best_index;
 }
 
+void task_start(void)
+{
+    __asm__ volatile("MRS r0, CONTROL");
+    __asm__ volatile("ORR r0, r0, #2");
+    __asm__ volatile("MSR CONTROL, r0");
+    __asm__ volatile("ISB");
+
+    __asm__ volatile("LDR r0, =task_table");
+    __asm__ volatile("LDR r0, [r0]");       
+    __asm__ volatile("LDR r0, [r0]");       
+
+    __asm__ volatile("ADD r0, r0, #32");
+
+    __asm__ volatile("LDR r1, [r0, #24]");
+
+    __asm__ volatile("ADD r0, r0, #32");
+    __asm__ volatile("MSR PSP, r0");
+
+    __asm__ volatile("BX r1");
+
+    while (1);
+}
+
 void delay(uint32_t ticks)
 {
     TCB_t *current = task_table[current_task_index];
