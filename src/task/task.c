@@ -107,3 +107,18 @@ void scheduler_next(void)
 
     current_task_index = best_index;
 }
+
+void delay(uint32_t ticks)
+{
+    TCB_t *current = task_table[current_task_index];
+
+    current->wake_tick = global_tick_counter + ticks;
+    current->task_state = BLOCKED;
+
+    SCB->ICSR |= ICSR_PENDSVSET;
+}
+
+void delay_ms(uint32_t ms)
+{
+    delay((ms * TICK_HZ) / 1000);
+}
